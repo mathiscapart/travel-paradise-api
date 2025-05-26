@@ -1,14 +1,25 @@
-import express from 'express';
-import {userRouter} from "./routes/user.routes.js";
-const app = express()
-app.use(express.json())
+const sequelize = require('./models/index.js');
+const app = require('./routes')
+const port = 8080;
 
-const port = 8000
+async function assertDatabaseConnectionOk() {
+    console.log(`Checking database connection...`);
+    try {
+        await sequelize.authenticate();
+        console.log('Database connection OK!');
+    } catch (error) {
+        console.log('Unable to connect to the database:');
+        console.log(error.message);
+        process.exit(1);
+    }
+}
 
-app.use("/users", userRouter)
+async function init() {
+    await assertDatabaseConnectionOk();
 
-async function init(){
-    app.listen(port)
+    app.listen(port, () => {
+        console.log(`Express server started on port ${port}.`);
+    });
 }
 
 init();
