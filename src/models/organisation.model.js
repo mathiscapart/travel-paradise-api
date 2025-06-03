@@ -20,8 +20,7 @@ export const Organisation = sequelize.define("Organisation", {
     },
     address: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        allowNull: false
     },
     isAuthorized: {
         type: DataTypes.BOOLEAN,
