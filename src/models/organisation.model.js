@@ -11,7 +11,7 @@ export const Organisation = sequelize.define("Organisation", {
         allowNull: false
     },
     users: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        type: DataTypes.JSON,
         allowNull: false
     },
     country: {
