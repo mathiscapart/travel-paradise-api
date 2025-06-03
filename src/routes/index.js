@@ -1,18 +1,16 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
+import express from 'express';
+import bodyParser from "body-parser";
+import bcrypt from 'bcrypt';
 const app = express();
-const jwt = require('jsonwebtoken');
-const { models } = require('../models');
-const errorMiddleware = require('../middlewares/errorHandler.js');
-
-
+import jwt from 'jsonwebtoken';
+import { sequelize } from '../models/index.js';
+import {userRouter} from "./user.routes.js";
 
 app.use(bodyParser.json());
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
-    const user = await models.User.findOne({ where: { email } });
+    const user = await sequelize.models.User.findOne({ where: { email } });
 
     if (!user) return res.status(404).send('Utilisateur non trouvé');
 
@@ -50,6 +48,4 @@ app.get('/error', () => {
     throw new Error('This is a forced error!');
 });
 
-app.use(errorMiddleware)
-
-module.exports = app;
+export { app };
