@@ -1,12 +1,18 @@
-import { sequelize } from "../services/sequelize.service.js";
+import { sequelize } from "./index.js";
 import { DataTypes } from "sequelize";
+import bcrypt from "bcrypt";
 
-export const UserModel = sequelize.define("User", {
+const hashPassword = async (password) => {
+  const saltRounds = await bcrypt.genSalt(10);
+  return await bcrypt.hash(password, saltRounds);
+};
+
+export const User = sequelize.define("User", {
     lastName: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    firstanme: {
+    firstName: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -20,21 +26,45 @@ export const UserModel = sequelize.define("User", {
     },
     email: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     password: {
         type: DataTypes.STRING,
         allowNull: false
+
     },
     role: {
         type: DataTypes.STRING,
-        allowNull: null
+        allowNull: false
     },
     language: {
         type: DataTypes.STRING,
-        allowNull: null
+        allowNull: false
     }},
         {
-        timestamps: false
+        timestamps: false,
+        hooks: {
+          beforeCreate: async (record, _) => {
+            if (record.dataValues.password !== null) {
+              record.dataValues.password = (
+                await hashPassword(record.dataValues.password)
+              ).toString();
+            }
+          },
+          beforeUpdate: async (record, _) => {
+            if (record.dataValues.password !== null) {
+              record.dataValues.password = (
+                await hashPassword(record.dataValues.password)
+              ).toString();
+            }
+          },
+        },
     }
 )
+
+User.prototype.toJSON = function () {
+  const values = { ...this.get() };
+  delete values.password;
+  return values;
+};
