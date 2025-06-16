@@ -1,4 +1,10 @@
 services:
+  api:
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+
   database:
     image: mariadb:10.7.8
     container_name: travel-paradise-db
