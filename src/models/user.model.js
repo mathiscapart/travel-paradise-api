@@ -1,5 +1,6 @@
 import { sequelize } from "./index.js";
 import { DataTypes } from "sequelize";
+import { Organisation } from "./organisation.model.js";
 import bcrypt from "bcrypt";
 
 const hashPassword = async (password) => {
@@ -37,6 +38,14 @@ export const User = sequelize.define("User", {
         allowNull: false
     },
     language: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    OrganisationID: {
+        type: Organisation,
+        allowNull: false
+    },
+    avatar: {
         type: DataTypes.STRING,
         allowNull: false
     }},
