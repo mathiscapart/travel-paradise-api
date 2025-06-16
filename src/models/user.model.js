@@ -41,10 +41,6 @@ export const User = sequelize.define("User", {
         type: DataTypes.STRING,
         allowNull: false
     },
-    OrganisationID: {
-        type: Organisation,
-        allowNull: false
-    },
     avatar: {
         type: DataTypes.STRING,
         allowNull: false

@@ -5,8 +5,8 @@ import {User} from "./user.model.js";
 export const createTable = async () => {
     try {
 
-        Organisation.hasMany(User)
-        User.belongsTo(Organisation)
+    User.belongsTo(Organisation, {foreignKey: "OrganisationId", as: "organisation"});
+    Organisation.hasMany(User, {foreignKey: "OrganisationId", as: "users"});
 
         await sequelize.sync({alter: true})
         console.log('Connection has been established successfully.');
