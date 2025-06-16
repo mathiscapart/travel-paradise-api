@@ -33,9 +33,18 @@ organisationRouter.get('/', async function(req, res){
 })
 
 organisationRouter.get('/:id', async function(req, res){
-    const organisation = await Organisation.findByPk(req.params.id, { include: [User]});
+    const organisation = await Organisation.findByPk(req.params.id);
     if (organisation == null){
         return res.status(404).json({message: "l'organisation n'éxiste pas !"})
     }
     res.status(200).json(organisation)
+})
+
+organisationRouter.delete('/:id', async function (req, res){
+    const organisation = await Organisation.findByPk(req.params.id);
+    if (organisation == null){
+        return res.status(404).json({message: "L'organisation n'éxiste pas !"})
+    }
+    await organisation.destroy()
+    res.status(200).json({message: "L'organisation a été supprimer !"})
 })
