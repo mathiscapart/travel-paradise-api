@@ -5,6 +5,7 @@ export const Organisation = sequelize.define("Organisation", {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true
     },
     description: {
         type: DataTypes.STRING,
