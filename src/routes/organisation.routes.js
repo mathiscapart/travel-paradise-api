@@ -38,7 +38,7 @@ organisationRouter.get('/:id', async function(req, res){
     res.status(200).json(organisation)
 })
 
-organisationRouter.put('/:id', async function (req, res){
+organisationRouter.patch('/:id', async function (req, res){
     const organisation = await Organisation.findByPk(req.params.id);
     if (organisation == null){
         return res.status(404).json({message: "L'organisation n'éxiste pas !"})
@@ -61,7 +61,7 @@ organisationRouter.put('/:id', async function (req, res){
         await organisation.save()
         await organisation.reload()
 
-        res.status(200).json(organisation)
+        res.status(200).json({ message: "L'organisation a bien était modifier !" } )
     }catch (err) {
         res.status(500).json({ message: "Erreur lors de la modification de l'organisation !", err});
     }
