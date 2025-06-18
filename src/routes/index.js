@@ -77,7 +77,6 @@ const myToken = function (req, res, next) {
 };
 
 app.use('/users', myToken, userRouter);
-app.use('/users', userRouter);
 app.use('/organisations', organisationRouter);
 
 app.get('/error', (req, res) => {
