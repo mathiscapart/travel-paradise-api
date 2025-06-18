@@ -1,11 +1,5 @@
 import { sequelize } from "./index.js";
 import { DataTypes } from "sequelize";
-import bcrypt from "bcrypt";
-
-const hashPassword = async (password) => {
-  const saltRounds = await bcrypt.genSalt(10);
-  return await bcrypt.hash(password, saltRounds);
-};
 
 export const User = sequelize.define("User", {
     lastName: {
@@ -48,24 +42,8 @@ export const User = sequelize.define("User", {
         type: DataTypes.INTEGER,
         allowNull: true
     }},
-        {
+    {
         timestamps: false,
-        hooks: {
-          beforeCreate: async (record, _) => {
-            if (record.dataValues.password !== null) {
-              record.dataValues.password = (
-                await hashPassword(record.dataValues.password)
-              ).toString();
-            }
-          },
-          beforeUpdate: async (record, _) => {
-            if (record.dataValues.password !== null) {
-              record.dataValues.password = (
-                await hashPassword(record.dataValues.password)
-              ).toString();
-            }
-          },
-        },
     }
 )
 
