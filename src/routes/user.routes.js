@@ -42,7 +42,7 @@ userRouter.get('/:id', async function(req, res){
     res.status(200).json(user)
 })
 
-userRouter.put('/:id', body('email').isEmail().trim(), async function (req, res){
+userRouter.patch('/:id', body('email').isEmail().trim(), async function (req, res){
     const user = await User.findByPk(req.params.id);
     if (user == null){
         return res.status(404).json({message: "L'utilisateur n'éxiste pas !"})
