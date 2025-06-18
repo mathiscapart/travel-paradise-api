@@ -9,8 +9,8 @@ userRouter.post('/', body('email').isEmail().trim(), async function (req, res){
     try {
         const result = validationResult(req)
         if (!result.isEmpty()){
-         res.status(422).json({message: "L'émail est invalide !"})
-         return
+            res.status(422).json({message: "L'émail est invalide !"})
+            return
         }
 
         if (await User.findOne({where: {email: req.body.email}})) {
@@ -42,7 +42,7 @@ userRouter.get('/:id', async function(req, res){
     res.status(200).json(user)
 })
 
-userRouter.put('/:id', body('email').isEmail().trim(), async function (req, res){
+userRouter.patch('/:id', body('email').isEmail().trim(), async function (req, res){
     const user = await User.findByPk(req.params.id);
     if (user == null){
         return res.status(404).json({message: "L'utilisateur n'éxiste pas !"})
@@ -72,10 +72,11 @@ userRouter.put('/:id', body('email').isEmail().trim(), async function (req, res)
         user.email = req.body.email
         user.password = req.body.password
         user.role = req.body.role
-        user.language = req.body.role
+        user.language = req.body.language
+        user.avatar = req.body.avatar
         await user.save()
         await user.reload()
-        res.status(200).json(user)
+        res.status(200).json({ message: "L'user a bien était modifié !"} )
     }catch (err) {
         res.status(500).json({ message: "Erreur lors de la modification de l'utilisateur !", err});
     }

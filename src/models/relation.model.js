@@ -1,7 +1,13 @@
 import { sequelize } from "./index.js";
+import {Organisation} from "./organisation.model.js";
+import {User} from "./user.model.js";
 
 export const createTable = async () => {
     try {
+
+        User.belongsTo(Organisation, {foreignKey: "organisationId", as: "organisation"});
+        Organisation.hasMany(User, {foreignKey: "organisationId", as: "users"});
+
         await sequelize.sync({alter: true})
         console.log('Connection has been established successfully.');
     } catch (err) {
