@@ -2,6 +2,7 @@ import { sequelize } from './models/index.js';
 import { app } from './routes/index.js';
 import {createTable} from "./models/relation.model.js";
 import dotenv from 'dotenv';
+import {createDefautlAdmin} from "./createDefaultAdmin.js";
 dotenv.config();
 
 const port = process.env.APP_PORT;
@@ -21,6 +22,7 @@ async function assertDatabaseConnectionOk() {
 async function init() {
     await assertDatabaseConnectionOk();
     await createTable();
+    await createDefautlAdmin();
 
     app.listen(port, () => {
         console.log(`Express server started on port ${port}.`);

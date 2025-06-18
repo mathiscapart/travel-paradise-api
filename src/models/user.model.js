@@ -33,7 +33,7 @@ export const User = sequelize.define("User", {
         allowNull: false
     },
     role: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     language: {
