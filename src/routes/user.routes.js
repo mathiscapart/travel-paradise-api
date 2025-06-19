@@ -67,7 +67,7 @@ userRouter.patch('/:id', body('email').isEmail().trim(), async function (req, re
 
         user.lastName = req.body.lastName
         user.firstName = req.body.firstName
-        user.coutry = req.body.country
+        user.country = req.body.country
         user.phone = req.body.phone
         user.email = req.body.email
         user.password = req.body.password
