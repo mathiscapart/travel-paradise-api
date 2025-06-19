@@ -10,6 +10,8 @@ export const createTable = async () => {
         User.belongsTo(Organisation, {foreignKey: "organisationId", as: "organisation"});
         Organisation.hasMany(User, {foreignKey: "organisationId", as: "users"});
 
+        Visite.belongsTo(listeEquipement, { foreignKey: "ListeEquipements", as: "equipements"});
+
         await sequelize.sync({alter: true})
         console.log('Connection has been established successfully.');
     } catch (err) {

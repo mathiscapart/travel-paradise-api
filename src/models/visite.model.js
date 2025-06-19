@@ -26,10 +26,6 @@ export const Visite = sequelize.define("Visite", {
         type: DataTypes.FLOAT,
         allowNull: false
     },
-    listEquipement: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
     duration : {
         type: DataTypes.INTEGER,
         allowNull: true
