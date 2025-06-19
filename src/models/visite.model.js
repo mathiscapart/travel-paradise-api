@@ -1,13 +1,12 @@
 import { sequelize } from "./index.js";
 import { DataTypes } from "sequelize";
-import bcrypt from "bcrypt";
 
-export const User = sequelize.define("User", {
-    lastName: {
+export const Visite = sequelize.define("Visite", {
+    name: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    firstName: {
+    image: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -15,31 +14,23 @@ export const User = sequelize.define("User", {
         type: DataTypes.STRING,
         allowNull: false
     },
-    phone: {
+    address: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    password: {
+    town: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    role: {
-        type: DataTypes.INTEGER,
+    price: {
+        type: DataTypes.FLOAT,
         allowNull: false
     },
-    language: {
+    listEquipement: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
-    avatar: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    organisationId: {
+    duration : {
         type: DataTypes.INTEGER,
         allowNull: true
     }},
@@ -47,9 +38,3 @@ export const User = sequelize.define("User", {
         timestamps: false,
     }
 )
-
-User.prototype.toJSON = function () {
-  const values = { ...this.get() };
-  delete values.password;
-  return values;
-};
