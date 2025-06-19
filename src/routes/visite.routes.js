@@ -22,9 +22,18 @@ visiteRouter.get('/', async function(req, res){
 })
 
 visiteRouter.get('/:id', async function(req, res){
-    const visite = await User.findByPk(req.params.id);
+    const visite = await Visite.findByPk(req.params.id);
     if (visite == null){
-        return res.status(404).json({message: "l'utilisateur n'éxiste pas !"})
+        return res.status(404).json({message: "la visite n'éxiste pas !"})
     }
-    res.status(200).json(user)
+    res.status(200).json(visite)
+})
+
+visiteRouter.delete('/:id', async function (req, res){
+    const visite = await Visite.findByPk(req.params.id);
+    if (visite == null){
+        return res.status(404).json({message: "La visite n'éxiste pas !"})
+    }
+    await visite.destroy()
+    res.status(200).json({message: "La visite a été supprimer !"})
 })
