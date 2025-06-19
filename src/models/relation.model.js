@@ -2,6 +2,7 @@ import { sequelize } from "./index.js";
 import {Organisation} from "./organisation.model.js";
 import {User} from "./user.model.js";
 import {Visite} from "./visite.model.js";
+import {listeEquipement} from "./listeEquipement.model.js";
 
 export const createTable = async () => {
     try {

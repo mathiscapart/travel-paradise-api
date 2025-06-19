@@ -78,7 +78,6 @@ app.use(bodyParser.json());
 // };
 //
 // app.use('/users', myToken, userRouter);
-app.use('/users', userRouter);
 app.use('/organisations', organisationRouter);
 app.use('/visites', visiteRouter);
 
