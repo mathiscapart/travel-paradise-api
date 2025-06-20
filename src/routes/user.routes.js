@@ -42,7 +42,7 @@ userRouter.get('/:id', async function(req, res){
     res.status(200).json(user)
 })
 
-userRouter.patch('/:id', body('email').isEmail().trim(), async function (req, res){
+userRouter.patch('/:id', body('email').optional().isEmail().trim().normalizeEmail(), async function (req, res){
     const user = await User.findByPk(req.params.id);
     if (user == null){
         return res.status(404).json({message: "L'utilisateur n'éxiste pas !"})
@@ -55,25 +55,39 @@ userRouter.patch('/:id', body('email').isEmail().trim(), async function (req, re
             return
         }
 
-        if (await User.findOne({where: {email: req.body.email, id: {[Op.ne]: req.params.id}}})) {
-            res.status(409).json({ message: "L'émail est déja utilisé"})
-            return
+        const newEmail = req.body.email?.trim().toLowerCase();
+        const currentEmail = user.email?.trim().toLowerCase();
+
+        if (newEmail && newEmail !== currentEmail) {
+            const existingtEmailUser = await User.findOne({
+                where: { email: newEmail, id: { [Op.ne]: user.id } }
+            });
+            if (existingtEmailUser) {
+                res.status(409).json({ message: "L'email est déja utilisé" })
+                return
+            }
+            user.email = newEmail;
         }
 
-        if (await User.findOne({where: {phone: req.body.phone, id: {[Op.ne]: req.params.id}}})) {
-            res.status(409).json({ message: "Le numéro de téléphone est déja utilisé"})
-            return
+        if (req.body.phone && req.body.phone !== user.phone) {
+            const existingPhoneUser = await User.findOne({
+                where: { phone: req.body.phone, id: { [Op.ne]: user.id } }
+            });
+            if (existingPhoneUser) {
+                res.status(409).json( { message: "Le numéro de téléphone est déja utilisé" });
+                return
+            }
+            user.phone = req.body.phone;
         }
 
-        user.lastName = req.body.lastName
-        user.firstName = req.body.firstName
-        user.country = req.body.country
-        user.phone = req.body.phone
-        user.email = req.body.email
-        user.password = req.body.password
-        user.role = req.body.role
-        user.language = req.body.language
-        user.avatar = req.body.avatar
+        user.lastName = req.body.lastName ?? user.lastName;
+        user.firstName = req.body.firstName ?? user.firstName;
+        user.country = req.body.country ?? user.country;
+        user.password = req.body.password ?? user.password;
+        user.role = req.body.role ?? user.role;
+        user.language = req.body.language ?? user.language;
+        user.avatar = req.body.avatar ?? user.avatar;
+
         await user.save()
         await user.reload()
         res.status(200).json({ message: "L'user a bien était modifié !"} )
