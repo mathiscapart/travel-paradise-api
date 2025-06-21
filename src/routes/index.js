@@ -7,6 +7,7 @@ import { sequelize } from '../models/index.js';
 import {userRouter} from "./user.routes.js";
 import {organisationRouter} from "./organisation.routes.js";
 import {visiteRouter} from "./visite.routes.js";
+import {reservationRouter} from "./reservation.routes.js";
 
 app.use(bodyParser.json());
 
@@ -79,6 +80,7 @@ app.use(bodyParser.json());
 app.use('/users', userRouter);
 app.use('/organisations', organisationRouter);
 app.use('/visites', visiteRouter);
+app.use('/reservation', reservationRouter);
 
 app.get('/error', (req, res) => {
     throw new Error('This is a forced error!');
