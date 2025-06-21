@@ -12,4 +12,3 @@ export const listeEquipement = sequelize.define("ListeEquipement", {
     }
 
 )
-

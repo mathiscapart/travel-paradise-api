@@ -1,11 +1,6 @@
 import {Router} from "express"
 import { Visite } from "../models/visite.model.js";
-import {User} from "../models/user.model.js";
-import {userRouter} from "./user.routes.js";
-import {body, validationResult} from "express-validator";
-import {Op} from "sequelize";
 import {listeEquipement} from "../models/listeEquipement.model.js";
-import {organisationRouter} from "./organisation.routes.js";
 
 export const visiteRouter = Router()
 

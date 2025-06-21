@@ -1,8 +1,5 @@
 import {response, Router} from "express"
 import { Organisation } from "../models/organisation.model.js";
-import { User } from "../models/user.model.js";
-import {userRouter} from "./user.routes.js";
-import {body, validationResult} from "express-validator";
 import {DataTypes, Op, or} from "sequelize";
 
 export const organisationRouter = Router()
