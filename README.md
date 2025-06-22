@@ -4,13 +4,13 @@ api pour la **gestion des utilisateurs**, **des visites**, **des organisations**
 
 ## 🚀 Fonctionnalités
 
-- 🔐 CRUD User
-- ✅ CRUD Organisation
-- 📆 CRUD Visite
-- 🧍‍♂️ CRUD Reservation
-- 🌐 Gestion Base de donnée (**sequelize**, **mariadb**)
-- 📊 Gestion route api (**express**)
-- Generation de token pour les utilisateurs (**jwt**)
+- 🔐 Gestion des utilisateurs (CRUD)
+- 🏢 Gestion des organisations (CRUD)
+- 📅 Gestion des visites (CRUD)
+- 🧾 Gestion des réservations (CRUD)
+- 🗄️ Gestion de la base de données (Sequelize, MariaDB)
+- 🌐 Gestion des routes API (Express)
+- 🔑 Génération de tokens utilisateurs (JWT)
 
 ---
 
