@@ -19,7 +19,7 @@ export const Reservation = sequelize.define("Reservation", {
         allowNull: false
     },
     guide_id: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false
     }},
         {

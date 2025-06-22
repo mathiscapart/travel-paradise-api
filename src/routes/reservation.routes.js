@@ -1,8 +1,5 @@
 import {Router} from "express"
 import {Reservation} from "../models/reservation.model.js";
-import {Organisation} from "../models/organisation.model.js";
-import {organisationRouter} from "./organisation.routes.js";
-import {Op} from "sequelize";
 
 export const reservationRouter = Router()
 
