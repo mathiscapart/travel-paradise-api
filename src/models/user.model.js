@@ -46,7 +46,7 @@ export const User = sequelize.define("User", {
     },
     organisationId: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: true,
     }},
         {
         timestamps: false,
